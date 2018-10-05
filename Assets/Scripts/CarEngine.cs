@@ -5,10 +5,25 @@ using UnityEngine;
 public class CarEngine : MonoBehaviour {
 
     public Transform path;
+    public float maxSteerAngle = 45f;
+    public WheelCollider wheelFL;
+    public WheelCollider wheelFR;
+    public WheelCollider wheelRL;
+    public WheelCollider wheelRR;
+    public float maxMotorTorque = 80f;
+    public float maxBrakingTorque = 150f;
+    public float currentSpeed;
+    public float maxSpeed = 100f;
+    public bool isBraking = false;
+    public Texture2D textureNormal;
+    public Texture2D textureBraking;
+    public Renderer carRenderer;
+
     private List<Transform> nodes;
     private int currentNode = 0;
 
-    private void Start () {
+    private void Start ()
+    {
         Transform[] pathTransforms = path.GetComponentsInChildren<Transform>();
         nodes = new List<Transform>();
 
@@ -22,13 +37,68 @@ public class CarEngine : MonoBehaviour {
     }
 	
 	
-	private void Update () {
+	private void Update ()
+    {
         ApplySteer();
+        Drive();
+        CheckWaypointDistance();
+        Braking();
 	}
 
-    void ApplySteer()
+    private void ApplySteer()
     {
         Vector3 relativeVector = transform.InverseTransformPoint(nodes[currentNode].position);
-        print(relativeVector);
+        float newSteer = (relativeVector.x / relativeVector.magnitude) * maxSteerAngle;
+        wheelFL.steerAngle = newSteer;
+        wheelFR.steerAngle = newSteer;
+    }
+
+    private void Drive()
+    {
+        currentSpeed = 2 * Mathf.PI * wheelFL.radius * wheelFL.rpm * 60 / 1000;
+
+        if(currentSpeed < maxSpeed && !isBraking)
+        {
+            wheelFL.motorTorque = maxMotorTorque;
+            wheelFR.motorTorque = maxMotorTorque;
+        }
+        else
+        {
+            wheelFL.motorTorque = 0;
+            wheelFR.motorTorque = 0;
+        }
+        
+    }
+
+    private void CheckWaypointDistance()
+    {
+        if(Vector3.Distance(transform.position, nodes[currentNode].position) < 0.5f)
+        {
+            if(currentNode == nodes.Count - 1)
+            {
+                currentNode = 0;    
+            }
+            else
+            {
+                currentNode++;
+            }
+        }
+    }
+
+    private void Braking()
+    {
+        if(isBraking)
+        {
+            carRenderer.material.mainTexture = textureBraking;
+            wheelRL.brakeTorque = maxBrakingTorque;
+            wheelRR.brakeTorque = maxBrakingTorque;
+        }
+        else
+        {
+            carRenderer.material.mainTexture = textureNormal;
+            wheelRL.brakeTorque = 0;
+            wheelRR.brakeTorque = 0;
+        }
+
     }
 }
