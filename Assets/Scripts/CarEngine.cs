@@ -133,12 +133,10 @@ public class CarEngine : MonoBehaviour {
             }
         }
         
-
         if (avoiding)
         {
             targetSteerAngle = maxSteerAngle * avoidMultiplier;
         }
-  
     }
 
     private void ApplySteer()
