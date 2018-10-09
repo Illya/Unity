@@ -8,10 +8,12 @@ public class FolllowWay : MonoBehaviour {
     public Transform[] points;
     private int destPoint = 0;
     private NavMeshAgent agent;
+    Animator m_Animator;
 
 
     void Start()
     {
+        m_Animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
 
         // Disabling auto-braking allows for continuous movement

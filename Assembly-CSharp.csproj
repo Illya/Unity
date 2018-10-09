@@ -74,6 +74,9 @@
     <Compile Include="Assets\Scripts\FolllowWay.cs" />
     <Compile Include="Assets\Scripts\Path.cs" />
     <Compile Include="Assets\Scripts\Sun.cs" />
+    <Compile Include="Assets\Supercyan Character Pack Free Sample\Scripts\CameraLogic.cs" />
+    <Compile Include="Assets\Supercyan Character Pack Free Sample\Scripts\Demo.cs" />
+    <Compile Include="Assets\Supercyan Character Pack Free Sample\Scripts\SimpleCharacterControl.cs" />
     <None Include="Assets\SampleScenes\Shaders\Skybox-Procedural.shader" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>D:/Unity/CarAi/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
