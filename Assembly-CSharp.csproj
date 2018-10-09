@@ -71,6 +71,7 @@
     <Compile Include="Assets\SampleScenes\Scripts\SlowMoButton.cs" />
     <Compile Include="Assets\Scripts\CarEngine.cs" />
     <Compile Include="Assets\Scripts\CarWheel.cs" />
+    <Compile Include="Assets\Scripts\FolllowWay.cs" />
     <Compile Include="Assets\Scripts\Path.cs" />
     <Compile Include="Assets\Scripts\Sun.cs" />
     <None Include="Assets\SampleScenes\Shaders\Skybox-Procedural.shader" />
